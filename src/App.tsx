@@ -1,35 +1,85 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "./App.css";
+import { ThemeProvider, useTheme } from "./ThemeContext";
+import Switch from "./Switch";
+
+const Title = ({ children }) => {
+	const { theme } = useTheme();
+	return (
+		<h2
+			style={{
+				color: theme === "light" ? "black" : "white",
+			}}
+		>
+			{children}
+		</h2>
+	);
+};
+
+const Paragraph = ({ children }) => {
+	const { theme } = useTheme();
+	return (
+		<p
+			style={{
+				color: theme === "light" ? "black" : "white",
+			}}
+		>
+			{children}
+		</p>
+	);
+};
+
+const Content = () => {
+	return (
+		<div>
+			<Paragraph>
+				We are a pizza loving family. And for years, I searched and searched and
+				searched for the perfect pizza dough recipe. I tried dozens, or more.
+				And while some were good, none of them were that recipe that would make
+				me stop trying all of the others.
+			</Paragraph>
+		</div>
+	);
+};
+
+const Header = () => {
+	return (
+		<header>
+			<Title>Little Lemon 🍕</Title>
+			<Switch />
+		</header>
+	);
+};
+
+const Page = () => {
+	return (
+		<div className="Page">
+			<Title>When it comes to dough</Title>
+			<Content />
+		</div>
+	);
+};
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+	const { theme } = useTheme();
+	return (
+		<div
+			className="App"
+			style={{
+				backgroundColor: theme === "light" ? "white" : "black",
+			}}
+		>
+			<Header />
+			<Page />
+		</div>
+	);
 }
 
-export default App
+function Root() {
+	return (
+		<ThemeProvider>
+			<App />
+		</ThemeProvider>
+	);
+}
+
+export default Root;
