@@ -1,69 +1,51 @@
-# React + TypeScript + Vite
+# Instructions
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Task
 
-Currently, two official plugins are available:
+You've learned about React Context and how it allows you to define global state without passing individual props down through each component.
+One of the most common use cases for Context is to define a theme for your application. In this exercise, you'll create a light/dark theme switcher.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The starter code includes all the necessary UI elements, as well as switch component to toggle the theme. Your goal is to implement the missing functionality inside `ThemeContext.js`.
+`ThemeContext` already exports a `ThemeProvider` component and a `useTheme` hook.
+At the moment, they don't do anything and return dummy values. 
 
-## Expanding the ESLint configuration
+![Alt text](images/image1.png)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+You'll need to implement both `ThemeProvider` component and `useTheme` hook inside `ThemeContext.js` file to complete this exercise.
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+`ThemeProvider` should render a context provider component and inject as the context value an object with 2 properties: a `theme` property that is a string that can be either `light` or `dark` and a function named `toggleTheme` that allows to toggle the theme. 
+`useTheme` hook should return that context object.
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+**Note:** Before you begin, make sure you understand how to work with the Coursera Code Lab for the [Advanced React course](https://www.coursera.org/learn/advanced-react/supplement/htaLX/working-with-labs-in-this-course).
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+If you run `npm start` and view the app in the browser, you'll notice that the starting React app works as is.
+The app outputs a simple view with a header, page and a switch widget in the top right corner to change the theme.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Steps
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### **Step 1**
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Open the `ThemeContext.js` file.
+
+Create a `ThemeContext` object using `React.createContext()`
+
+Implement the `ThemeProvider` component. It should accept a `children` prop and return a `ThemeContext.Provider` component.
+The `ThemeContext.Provider` receives an object as its `value` prop, with a `theme` string and a `toggleTheme` function.
+
+`toggleTheme` should toggle the theme between `light` and `dark`.
+
+### **Step 2**
+
+Implement the `useTheme` hook. It should return the `theme` and `toggleTheme` values from the `ThemeContext`.
+
+### **Step 3**
+
+Open the `Switch/index.js` file. Add an `onChange` prop to the input element and pass as the event handler a callback function to change the theme.
+You don’t need to use the event argument in this case.
+
+### **Step 4**
+
+Verify that the app works as expected. You should be able to toggle the theme between light and dark.
+Notice how the background color of the page changes, as well as the color of the text.
+
+![Alt text](images/image2.png)
